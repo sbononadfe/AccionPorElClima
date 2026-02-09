@@ -6,8 +6,8 @@
     <title>Clasifica y Aprende | Acción por el Clima</title>
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -285,7 +285,6 @@
         <nav class="nav-glass" aria-label="Menú principal">
             <ul>
                 <li><a class="nav-link" href="#inicio" id="nav-inicio">Inicio</a></li>
-                <li><a class="nav-link" href="#ia" id="nav-ia">IA Inteligente</a></li>
                 <li><a class="nav-link" href="#juego" id="nav-juego">EcoCiudad</a></li>
             </ul>
         </nav>
@@ -321,8 +320,7 @@
             El proyecto <strong>Clasifica y Aprende</strong> te da las herramientas para actuar hoy.
         </p>
         <div class="cta-group">
-            <a href="#ia" class="btn" id="btn-ia">Probar la IA Ahora</a>
-            <a href="#juego" class="btn" style="background-color: #FF5722;" id="btn-juego">Jugar en Scratch</a>
+            <a href="#juego" class="btn" id="btn-juego">Jugar en Scratch</a>
         </div>
     </section>
 
@@ -345,39 +343,21 @@
         </div>
     </section>
 
-    <!-- IA como apartado con animación -->
-    <section id="ia" class="ai-section full-section js-section animate-section">
-        <h2 id="ia-title">Inteligencia Artificial al Rescate</h2>
-        <p style="margin-bottom: 2rem;" id="ia-desc">
-            Hemos implementado una <strong>IA interactiva</strong> sencilla: Ella ve lo que tú ves. 
-            Enséñale un residuo y te dirá instantáneamente dónde tirarlo.
-        </p>
-        <div class="ai-container">
-            <div class="webcam-placeholder" id="webcam-container">
-                <p id="webcam-label">📷 [Vista de Cámara]</p>
-            </div>
-            <button class="btn" onclick="simularIA()" style="background-color: var(--primary-blue);" id="btn-escanear">Escanear Objeto</button>
-            <div class="loader" id="loader"></div>
-            <div id="result-label">Esperando objeto...</div>
-        </div>
-        <p class="small" id="powered-by">Powered by Teachable Machine</p>
-    </section>
-
     <!-- Juego como apartado con animación -->
     <section id="juego" class="game-section full-section js-section animate-section">
         <h2 id="juego-title">Videojuego: EcoCiudad</h2>
         <div class="game-desc">
             <p id="juego-desc">Conviértete en un <strong>héroe verde</strong> en una ciudad que necesita ayuda. 
-            Tu misión: recoger basura, reciclar y ganar <strong>puntos eco</strong>.</p>
+            Tu misión: recoger basura, y ganar <strong>puntos eco</strong>.</p>
             <ul style="list-style: none; margin-top: 1rem; color: #666;">
                 <li id="juego-li-bien">✅ Si reciclas bien: La contaminación baja.</li>
                 <li id="juego-li-mal">❌ Si te equivocas: La contaminación sube.</li>
             </ul>
         </div>
-        <!-- Scratch game embed -->
-        <iframe src="https://scratch.mit.edu/projects/1267036115/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
         <button class="btn" style="background-color: #FF5722;" id="btn-juego2">Jugar en Scratch</button>
+        <div id="scratch-container" style="margin-top:2rem; display:none; text-align:center;"></div>
     </section>
+    
 
     <!-- Flechas para subir/bajar entre apartados -->
     <div class="arrow-nav" aria-label="Navegación por apartados">
@@ -386,47 +366,13 @@
     </div>
 
     <footer>
-        <p id="footer-copy">&copy; 2025 Proyecto Acción por el Clima.</p>
+        <p id="footer-copy">&copy; 2026 Proyecto Acción por el Clima.</p>
         <div class="team-members" id="footer-team">
-            Desarrollado por: Salvador Bononad, Pablo Martí, Jaime Moreno y Félix Carretero.
+            Desarrollado por: Salvador Bononad, Pablo Martí, Jaime Moreno, Félix Carretero y Rafael Vilanova.
         </div>
     </footer>
 
     <script>
-        // Esta función simula lo que haría tu modelo de Teachable Machine
-        // Para que veas el efecto "Dopamínico" de respuesta inmediata
-        function simularIA() {
-            const resultLabel = document.getElementById("result-label");
-            const loader = document.getElementById("loader");
-            const items = [
-                { name: "Botella de Plástico", bin: "Amarillo", color: "#FFEB3B", msg: "¡Excelente! Al contenedor de envases." },
-                { name: "Cáscara de Plátano", bin: "Marrón/Orgánico", color: "#795548", msg: "¡Bien! Esto se convertirá en compost." },
-                { name: "Papel Usado", bin: "Azul", color: "#2196F3", msg: "¡Correcto! Salvemos árboles." }
-            ];
-
-            // 1. Mostrar carga (Feedback visual)
-            resultLabel.innerText = "Analizando...";
-            loader.style.display = "block";
-            
-            // 2. Simular tiempo de proceso de la IA (1.5 segundos)
-            setTimeout(() => {
-                loader.style.display = "none";
-                
-                // Elegir un objeto al azar para la demo
-                const randomItem = items[Math.floor(Math.random() * items.length)];
-                
-                // 3. Mostrar resultado con colores (Dopamina)
-                resultLabel.style.color = "#333";
-                resultLabel.innerHTML = `
-                    <span style="display:block; font-size: 1.2rem; color: #555;">He detectado: <strong>${randomItem.name}</strong></span>
-                    <div style="background-color: ${randomItem.color}; color: #fff; padding: 10px; border-radius: 8px; margin-top: 10px; animation: popIn 0.5s;">
-                        Contenedor: ${randomItem.bin} <br>
-                        <small>${randomItem.msg}</small>
-                    </div>
-                `;
-            }, 1500);
-        }
-
         // Animación CSS extra inyectada para el resultado
         const styleSheet = document.createElement("style");
         styleSheet.innerText = `
@@ -525,12 +471,10 @@
             es: {
                 'logo-text': 'Clasifica y Aprende',
                 'nav-inicio': 'Inicio',
-                'nav-ia': 'IA Inteligente',
                 'nav-juego': 'EcoCiudad',
                 'hero-title': 'Tu Futuro Depende de Tu Basura',
                 'hero-slogan': '"Pequeñas acciones, grandes cambios. La naturaleza no necesita que la salves, necesita que dejes de destruirla."',
-                'hero-desc': 'En un sistema inestable, reciclar no es una opción, es una obligación. <strong>Clasifica y Aprende</strong> te da las herramientas para actuar hoy.',
-                'btn-ia': 'Probar la IA Ahora',
+                'hero-desc': 'En un sistema inestable, reciclar no es una opción, es una obligación. <strong>Clasifica y Aprende</strong> te da las herramientas para actuar hui.',
                 'btn-juego': 'Jugar en Scratch',
                 'info-title': '¿Por qué es vital?',
                 'card-reduce-title': 'Reduce',
@@ -539,28 +483,21 @@
                 'card-recicla-desc': 'Darle una segunda vida a los materiales evita la creación de nuevos recursos.',
                 'card-conciencia-title': 'Conciencia',
                 'card-conciencia-desc': 'Cada vez que clasificas bien, cambias el comportamiento de quienes te rodean.',
-                'ia-title': 'Inteligencia Artificial al Rescate',
-                'ia-desc': 'Hemos implementado una <strong>IA interactiva</strong> sencilla: Ella ve lo que tú ves. Enséñale un residuo y te dirá instantáneamente dónde tirarlo.',
-                'webcam-label': '📷 [Vista de Cámara]',
-                'btn-escanear': 'Escanear Objeto',
-                'powered-by': 'Powered by Teachable Machine',
                 'juego-title': 'Videojuego: EcoCiudad',
-                'juego-desc': 'Conviértete en un <strong>héroe verde</strong> en una ciudad que necesita ayuda. Tu misión: recoger basura, reciclar y ganar <strong>puntos eco</strong>.',
+                'juego-desc': 'Conviértete en un <strong>héroe verde</strong> en una ciudad que necesita ayuda. Tu misión: recoger basura, y ganar <strong>puntos eco</strong>.',
                 'juego-li-bien': '✅ Si reciclas bien: La contaminación baja.',
                 'juego-li-mal': '❌ Si te equivocas: La contaminación sube.',
                 'btn-juego2': 'Jugar en Scratch',
-                'footer-copy': '&copy; 2025 Proyecto Acción por el Clima.',
-                'footer-team': 'Desarrollado por: Salvador Bononad, Pablo Martí, Jaime Moreno y Félix Carretero.'
+                'footer-copy': '&copy; 2026 Proyecto Acción por el Clima.',
+                'footer-team': 'Desarrollado por: Salvador Bononad, Pablo Martí, Jaime Moreno, Félix Carretero y Rafael Vilanova.'
             },
             va: {
                 'logo-text': 'Classifica i Aprén',
                 'nav-inicio': 'Inici',
-                'nav-ia': 'IA Intel·ligent',
                 'nav-juego': 'EcoCiutat',
                 'hero-title': 'El teu futur depén del teu fem',
                 'hero-slogan': '"Xicotetes accions, grans canvis. La natura no necessita que la salves, necessita que deixes de destruir-la."',
                 'hero-desc': 'En un sistema inestable, reciclar no és una opció, és una obligació. <strong>Classifica i Aprén</strong> et dona les eines per a actuar hui.',
-                'btn-ia': 'Prova la IA Ara',
                 'btn-juego': 'Juga en Scratch',
                 'info-title': 'Per què és vital?',
                 'card-reduce-title': 'Redueix',
@@ -569,28 +506,21 @@
                 'card-recicla-desc': 'Donar una segona vida als materials evita la creació de nous recursos.',
                 'card-conciencia-title': 'Consciència',
                 'card-conciencia-desc': 'Cada vegada que classifiques bé, canvies el comportament de qui t\'envolta.',
-                'ia-title': 'Intel·ligència Artificial al Rescat',
-                'ia-desc': 'Hem implementat una <strong>IA interactiva</strong> senzilla: Ella veu el que tu veus. Mostra-li un residu i et dirà instantàniament on tirar-lo.',
-                'webcam-label': '📷 [Vista de Càmera]',
-                'btn-escanear': 'Escaneja Objecte',
-                'powered-by': 'Fet per Teachable Machine',
                 'juego-title': 'Videojoc: EcoCiutat',
-                'juego-desc': 'Converteix-te en un <strong>heroi verd</strong> en una ciutat que necessita ajuda. La teua missió: recollir fem, reciclar i guanyar <strong>punts eco</strong>.',
+                'juego-desc': 'Converteix-te en un <strong>heroi verd</strong> en una ciutat que necessita ajuda. La teua missió: recollir fem, i guanyar <strong>punts eco</strong>.',
                 'juego-li-bien': '✅ Si recicles bé: La contaminació baixa.',
                 'juego-li-mal': '❌ Si t\'equivoques: La contaminació puja.',
                 'btn-juego2': 'Juga en Scratch',
-                'footer-copy': '&copy; 2025 Projecte Acció pel Clima.',
-                'footer-team': 'Desenvolupat per: Salvador Bononad, Pablo Martí, Jaime Moreno i Félix Carretero.'
+                'footer-copy': '&copy; 2026 Projecte Acció pel Clima.',
+                'footer-team': 'Desenvolupat per: Salvador Bononad, Pablo Martí, Jaime Moreno, Félix Carretero i Rafael Vilanova.'
             },
             en: {
                 'logo-text': 'Sort & Learn',
                 'nav-inicio': 'Home',
-                'nav-ia': 'Smart AI',
                 'nav-juego': 'EcoCity',
                 'hero-title': 'Your Future Depends on Your Waste',
                 'hero-slogan': '"Small actions, big changes. Nature doesn\'t need saving, it needs you to stop destroying it."',
                 'hero-desc': 'In an unstable system, recycling is not an option, it\'s an obligation. <strong>Sort & Learn</strong> gives you the tools to act today.',
-                'btn-ia': 'Try the AI Now',
                 'btn-juego': 'Play on Scratch',
                 'info-title': 'Why is it vital?',
                 'card-reduce-title': 'Reduce',
@@ -599,18 +529,13 @@
                 'card-recicla-desc': 'Giving materials a second life avoids creating new resources.',
                 'card-conciencia-title': 'Awareness',
                 'card-conciencia-desc': 'Every time you sort correctly, you change the behavior of those around you.',
-                'ia-title': 'Artificial Intelligence to the Rescue',
-                'ia-desc': 'We have implemented a simple <strong>interactive AI</strong>: It sees what you see. Show it waste and it will instantly tell you where to throw it.',
-                'webcam-label': '📷 [Camera View]',
-                'btn-escanear': 'Scan Object',
-                'powered-by': 'Powered by Teachable Machine',
                 'juego-title': 'Videogame: EcoCity',
-                'juego-desc': 'Become a <strong>green hero</strong> in a city that needs help. Your mission: pick up trash, recycle, and earn <strong>eco points</strong>.',
+                'juego-desc': 'Become a <strong>green hero</strong> in a city that needs help. Your mission: pick up trash, and earn <strong>eco points</strong>.',
                 'juego-li-bien': '✅ If you recycle well: Pollution drops.',
                 'juego-li-mal': '❌ If you make a mistake: Pollution rises.',
                 'btn-juego2': 'Play on Scratch',
-                'footer-copy': '&copy; 2025 Climate Action Project.',
-                'footer-team': 'Developed by: Salvador Bononad, Pablo Martí, Jaime Moreno and Félix Carretero.'
+                'footer-copy': '&copy; 2026 Climate Action Project.',
+                'footer-team': 'Developed by: Salvador Bononad, Pablo Martí, Jaime Moreno, Félix Carretero and Rafael Vilanova.'
             }
         };
 
@@ -635,12 +560,30 @@
             if (select && select.value !== lang) select.value = lang;
         }
 
-        document.getElementById('lang-select').addEventListener('change', function() {
-            setLang(this.value);
+        // Incrusta el juego de Scratch al pulsar btn-juego2
+        document.getElementById('btn-juego2').addEventListener('click', function() {
+            const container = document.getElementById('scratch-container');
+            container.innerHTML = `
+                <iframe src="https://scratch.mit.edu/projects/1267036115/embed"
+                        allowtransparency="true"
+                        width="485"
+                        height="402"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen
+                        style="border-radius:16px;box-shadow:0 4px 24px rgba(33,150,243,0.13);background:#fff;"></iframe>
+            `;
+            container.style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
 
         // Inicializa idioma por defecto
         setLang(document.getElementById('lang-select').value);
+
+        // Cambia idioma al seleccionar en el menú
+        document.getElementById('lang-select').addEventListener('change', function(e) {
+            setLang(e.target.value);
+        });
 
         // Logo animación extra: giro automático cada 6s
         const logoImg = document.querySelector('.logo-img');
